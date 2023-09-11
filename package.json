@@ -1,0 +1,80 @@
+{
+	"name": "remote-gpus-monitor",
+	"displayName": "Remote GPUs monitor",
+	"description": "Check GPUs availability of remote servers",
+	"version": "0.0.5",
+	"publisher": "gab709",
+	"icon": "resources/logo.png",
+	"extensionKind": ["ui"],
+	"repository": {
+		"url": "https://github.com/gab709/remote-gpus-monitor"
+	  },
+	"engines": {
+		"vscode": "^1.74.0"
+	},
+	"main": "./out/extension.js",
+	"contributes": {
+		"configuration": {
+			"title": "Remote GPUs monitor",
+			"properties": {
+			  "gpu.listServers": {
+				"type": "string",
+				"default": "<user>@<server>, /path/to/key/\n<user2>@<server3>, /path/to/key/",
+				"editPresentation": "multilineText",
+				"scope": "window",
+				"description": "Server's configuration"
+			  }
+			}
+		  },
+		"viewsContainers": {
+			"activitybar": [
+				{
+					"id": "package-explorer",
+					"title": "Remote GPUs monitor",
+					"icon": "media/flame.svg"
+				}
+			]
+		},
+		"views": {
+			"package-explorer": [
+				{
+				  "id": "gpuDependencies",
+				  "name": "Remote GPUs monitor",
+				  "icon": "media/flame.svg",
+				  "contextualTitle": "GPUs monitor"
+				}
+			  ]
+		},
+		"commands": [
+			{
+				"command": "gpuDependencies.refreshEntry",
+				"title": "Refresh",
+				"icon": {
+					"light": "resources/light/refresh.svg",
+					"dark": "resources/dark/refresh.svg"
+				}
+			}
+		],
+		"menus": {
+			"view/title": [
+				{
+					"command": "gpuDependencies.refreshEntry",
+					"when": "view == gpuDependencies",
+					"group": "navigation"
+				}
+			]
+		}
+		
+	},
+	"scripts": {
+		"vscode:prepublish": "npm run compile",
+		"compile": "tsc -p ./",
+		"watch": "tsc -watch -p ./"
+	},
+	"devDependencies": {
+		"@types/node": "^10.12.21",
+		"@types/vscode": "^1.42.0",
+		"typescript": "^3.5.1",
+		"tslint": "^5.12.1"
+	}
+}
